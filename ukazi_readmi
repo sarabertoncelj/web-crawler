@@ -1,0 +1,51 @@
+#aktivacija okolja
+
+conda create -n wier python=3.6
+conda activate wier
+conda install nb_conda # to automatically run jupyter notebook in the current conda environment
+jupyter notebook # run this command in the folder with the Jupyter notebook
+
+
+pip install ultimate_sitemap_parser
+
+
+
+
+#docker zazeni
+docker run --name postgresql-wier -e POSTGRES_PASSWORD=SecretPassword -e POSTGRES_USER=user -v $PWD/pgdata:/var/lib/postgresql/data -v $PWD/init-scripts:/docker-entrypoint-initdb.d -p 5432:5432 -d postgres:9
+
+# docker pocisti
+docker stop
+docker rm
+docker system prune
+
+sudo docker logs -f postgresql-wier
+
+sudo docker exec -it postgresql-wier psql -U user
+
+#docker ip
+docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
+
+#git
+sudo git pull
+
+git add --all
+git commit -m "dodan readmi ukazov"
+git push
+
+#postgres
+
+sudo docker exec -it postgresql-wier psql -U user
+#list all
+\l
+
+#list all tables in base
+\dt
+
+#exit shell
+\q
+
+$ sudo apt-get update
+$ sudo apt-get install pgadmin4 pgadmin4-apache2 -y
+docker exec -t your-db-container postgresql-wier -c -U postgres > neki.sql
+postgresql-wier
